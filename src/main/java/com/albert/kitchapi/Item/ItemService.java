@@ -1,26 +1,15 @@
 package com.albert.kitchapi.Item;
 
-import com.albert.kitchapi.User.UserRepository;
 import javassist.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
-@Service
-public class ItemService {
+public interface ItemService {
+    public Item getItem(Long id);
 
-    @Autowired
-    ItemRepository itemRepository;
+    public List<Item> getItemsForUser(Long userId);
 
-    @Autowired
-    UserRepository userRepository;
+    public void addItemForUser(Long userId, Item item) throws NotFoundException;
 
-    public Item getItem(Long id){
-        return itemRepository.findById(id).orElse(null);
-    }
+    public void deleteItem(Long itemId);
 
-    public List<Item> getItemsForUser(Long userId) throws NotFoundException {
-        return userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found")).getItems();
-    }
 }

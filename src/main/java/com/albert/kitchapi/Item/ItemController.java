@@ -1,12 +1,9 @@
 package com.albert.kitchapi.Item;
 
 import com.albert.kitchapi.ApiController;
-import com.albert.kitchapi.User.User;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,13 +13,18 @@ public class ItemController implements ApiController {
     @Autowired
     private ItemService itemService;
 
-    @GetMapping("item/{itemId}")
-    public Item getItem(@PathVariable Long itemId){
-        return itemService.getItem(itemId);
+    @GetMapping("user/{userId}/items")
+    public List<Item> getItemsForUser(@PathVariable Long userId) throws NotFoundException {return itemService.getItemsForUser(userId);}
+
+    @PostMapping("user/{userId}/item")
+    public void addItemForUser(@PathVariable Long userId, @RequestBody Item item) throws NotFoundException {
+        itemService.addItemForUser(userId, item);
     }
 
-    @GetMapping("items/{userId}")
-    public List<Item> getItemsForUser(@PathVariable Long userId) throws NotFoundException {return itemService.getItemsForUser(userId);}
+    @DeleteMapping("item/{itemId}")
+    public void deleteItem(@PathVariable Long itemId){
+        itemService.deleteItem(itemId);
+    }
 
 
 }
