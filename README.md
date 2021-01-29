@@ -5,15 +5,30 @@ The backend api for the kitch web app - being developed by Albert Lillington.
 ## Run
 ### `mvn spring-boot:run`
 
-## Docker
+## Build and Deploy
 
-Follow these instructions to build and run the applicaiton using Docker.
+Follow these instructions to build and deploy the application using Docker.
 
-#### `mvn -DKITCH_DB_USERNAME=username -DKITCH_DB_PASSWORD=password package`
+Execute locally:
 
-#### `docker build -t tag-name .`
+```
+mvn -D KITCH_DB_USERNAME=username -D KITCH_DB_PASSWORD=password package
 
-#### `docker run -p 8080:8080 -e KITCH_DB_USERNAME=username -e KITCH_DB_PASSWORD=password tag-name`
+docker build -t albylillington/kitch:tag-name .
 
+docker push albylillington/kitch:tag-name
+```
 
+Execute on target machine (EC2):
+
+###### _Note: only execute the following command if Docker is not yet running_
+```
+sudo service docker start
+```
+```
+docker pull albylillington/kitch:tag-name
+
+docker run -p 80:8080 -e KITCH_DB_USERNAME=username -e KITCH_DB_PASSWORD=password albylillington/kitch:tag-name
+
+```
 
