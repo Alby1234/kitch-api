@@ -5,6 +5,8 @@ The backend api for the kitch web app - being developed by Albert Lillington.
 ## Run
 ### `mvn spring-boot:run`
 
+If running locally, ensure that the KITCH_DB_USERNAME and KITCH_DB_PASSWORD environment variables are set, and that the security group(s) for the Kitch DB RDS allows for traffic from your ip.
+
 ## Build and Deploy
 
 Follow these instructions to build and deploy the application using Docker.
